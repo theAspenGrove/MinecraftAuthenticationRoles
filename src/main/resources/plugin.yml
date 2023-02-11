@@ -1,0 +1,6 @@
+name: MinecraftAuthRoles
+version: '${project.version}'
+main: net.mov51.minecraftauthroles.MinecraftAuthRoles
+api-version: 1.19
+authors: [ mov51 ]
+description: Grant roles or permissions from Minecraft Authentication data
