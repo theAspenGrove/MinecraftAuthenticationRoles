@@ -8,23 +8,26 @@ import java.util.UUID;
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
 
 //extend the service class so that we can store it in the service map and override with an authorize method
-public class PatreonTierService extends Service {
-    public PatreonTierService(String value) {
+public class PatreonService extends Service {
+    public PatreonService(String value) {
         super(value);
     }
     public boolean authorize(UUID uuid) {
         try {
-            AuthService.isSubscribedPatreon(configHelper.getAPIToken(),uuid,super.getValue());
+            if(value.isEmpty()){
+                return AuthService.isSubscribedPatreon(configHelper.getAPIToken(),uuid);
+            }else{
+                return AuthService.isSubscribedPatreon(configHelper.getAPIToken(),uuid,getValue());
+            }
         } catch (LookupException e) {
             //todo log error
             e.printStackTrace();
             return false;
         }
-        return false;
     }
     @Override
-    public PatreonTierService newService(String value) {
+    public PatreonService newService(String value) {
         //returns a service of the same type for getting a fresh instance from the map
-        return new PatreonTierService(value);
+        return new PatreonService(value);
     }
 }
