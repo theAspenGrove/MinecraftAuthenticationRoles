@@ -1,11 +1,12 @@
 package net.mov51.minecraftauthroles.util;
 
+import net.luckperms.api.node.Node;
 import net.mov51.minecraftauthroles.util.services.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-import static net.mov51.minecraftauthroles.MinecraftAuthRoles.plugin;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.*;
 
 public class ServiceHelper {
     public static HashMap<String, Service> services = new HashMap<>();
@@ -21,14 +22,23 @@ public class ServiceHelper {
         services.put("YouTubeSubscriber",new YouTubeSubscriberService(null));
     }
     public static void handlePermission(String permission, Player p, boolean value){
-        if(p.hasPermission(permission)){
-            if(!value){
-                p.removeAttachment(p.addAttachment(plugin));
-            }
-        } else{
-            if(value){
-                p.addAttachment(plugin).setPermission(permission,true);
-            }
+        if(value){
+            luckPerms.getUserManager().modifyUser(p.getUniqueId(), user -> {
+                // Add the permission
+                user.data().add(Node.builder(permission).build());
+            });
+        } else if (p.hasPermission(permission)) {
+            luckPerms.getUserManager().modifyUser(p.getUniqueId(), user -> {
+                // Add the permission
+                user.data().remove(Node.builder(permission).build());
+            });
         }
+
     }
+
+    public static boolean printResult(String msg, boolean b){
+        logger.info(msg + " - result: " + b);
+        return b;
+    }
+
 }

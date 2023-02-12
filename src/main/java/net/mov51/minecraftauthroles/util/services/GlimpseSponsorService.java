@@ -6,6 +6,7 @@ import me.minecraftauth.lib.exception.LookupException;
 import java.util.UUID;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 public class GlimpseSponsorService extends Service {
     public GlimpseSponsorService(String value) {
@@ -14,9 +15,11 @@ public class GlimpseSponsorService extends Service {
     public boolean authorize(UUID uuid) {
         try {
             if(value.isEmpty()){
-                return AuthService.isSubscribedGlimpse(configHelper.getAPIToken(),uuid);
+                return printResult("Checking if " + uuid + " is a Glimpse Sponsor",
+                        AuthService.isSubscribedGlimpse(configHelper.getAPIToken(),uuid));
             }else{
-                return AuthService.isSubscribedGlimpse(configHelper.getAPIToken(),uuid,getValue());
+                return printResult("Checking if " + uuid + " is a Glimpse Sponsor at tier " + getValue(),
+                        AuthService.isSubscribedGlimpse(configHelper.getAPIToken(),uuid,getValue()));
             }
         } catch (LookupException e) {
             //todo log error

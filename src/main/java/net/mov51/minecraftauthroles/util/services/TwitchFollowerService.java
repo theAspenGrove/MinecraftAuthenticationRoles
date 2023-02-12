@@ -5,6 +5,8 @@ import me.minecraftauth.lib.AuthService;
 import java.util.UUID;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
+import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 //extend the service class so that we can store it in the service map and override with an authorize method
 public class TwitchFollowerService extends Service {
@@ -14,7 +16,8 @@ public class TwitchFollowerService extends Service {
     @Override
     public boolean authorize(UUID uuid) {
         try{
-            return AuthService.isFollowingTwitch(configHelper.getAPIToken(),uuid);
+            return printResult("Checking if " + uuid + " is following on Twitch.",
+                    AuthService.isFollowingTwitch(configHelper.getAPIToken(),uuid));
         }
         catch (Exception e){
             //todo log error

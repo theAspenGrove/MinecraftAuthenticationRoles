@@ -6,6 +6,7 @@ import me.minecraftauth.lib.exception.LookupException;
 import java.util.UUID;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 public class YouTubeMemberService extends Service {
     public YouTubeMemberService(String value) {
@@ -14,9 +15,11 @@ public class YouTubeMemberService extends Service {
     public boolean authorize(UUID uuid) {
         try {
             if(value.isEmpty()){
-                return AuthService.isMemberYouTube(configHelper.getAPIToken(),uuid);
+                return printResult("Checking if " + uuid + " is a member on YouTube.",
+                        AuthService.isMemberYouTube(configHelper.getAPIToken(),uuid));
             }else{
-               return AuthService.isMemberYouTube(configHelper.getAPIToken(),uuid,getValue());
+               return printResult("Checking if " + uuid + " is a member on YouTube at tier " + getValue(),
+                       AuthService.isMemberYouTube(configHelper.getAPIToken(),uuid,getValue()));
             }
 
         } catch (LookupException e) {
