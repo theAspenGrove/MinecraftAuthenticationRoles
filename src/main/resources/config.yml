@@ -1,0 +1,22 @@
+API-token: ""
+roles-to-sync:
+  TwitchFollower:
+    conditions:
+      - TwitchFollower()
+    permissions:
+      - group.TwitchFollower
+  YouTubeSubscriber:
+    conditions:
+      - YouTubeSubscriber()
+    permissions:
+      - group.YouTubeSubscriber
+  TwitchSubscriber:
+    conditions:
+      - TwitchSubscriber()
+    permissions:
+      - group.TwitchSubscriber
+  PatreonSupporterTier1:
+    conditions:
+      - PatreonMember("Supporter of Things")
+    permissions:
+      - group.PatreonTier1
