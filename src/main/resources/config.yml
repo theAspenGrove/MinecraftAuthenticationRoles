@@ -20,3 +20,8 @@ roles-to-sync:
       - PatreonMember("Supporter of Things")
     permissions:
       - group.PatreonTier1
+  FollowerOfAll:
+    conditions:
+      - YouTubeSubscriber() and TwitchFollower()
+    permissions:
+      - group.FollowerOfAll

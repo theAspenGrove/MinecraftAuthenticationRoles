@@ -1,13 +1,11 @@
 package net.mov51.minecraftauthroles.util;
 
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.UUID;
 
 public class ConfigHelper {
     private final String APIToken;
