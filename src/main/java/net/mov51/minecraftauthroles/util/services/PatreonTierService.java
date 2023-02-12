@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
 
+//extend the service class so that we can store it in the service map and override with an authorize method
 public class PatreonTierService extends Service {
     public PatreonTierService(String value) {
         super(value);
@@ -23,6 +24,7 @@ public class PatreonTierService extends Service {
     }
     @Override
     public PatreonTierService newService(String value) {
+        //returns a service of the same type for getting a fresh instance from the map
         return new PatreonTierService(value);
     }
 }

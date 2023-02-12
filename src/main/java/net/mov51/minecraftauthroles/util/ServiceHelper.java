@@ -10,6 +10,7 @@ import static net.mov51.minecraftauthroles.MinecraftAuthRoles.plugin;
 public class ServiceHelper {
     public static HashMap<String, Service> services = new HashMap<>();
     public static void loadServiceMap(){
+        //add all services to the map with a null value for easy access from the key
         services.put("TwitchFollower",new TwitchService(null));
         services.put("DiscordServer",new DiscordServerService(null));
         services.put("YouTubeSubscriber",new YouTubeService(null));

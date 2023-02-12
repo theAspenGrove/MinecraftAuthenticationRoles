@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PlayerJoin implements Listener {
     @EventHandler
     public void PlayerJoin(PlayerJoinEvent e) {
+        //check every player that joins for their current role status
         for (RoleToSync role : ConfigHelper.roles.values()) {
             role.handleUser(e.getPlayer());
         }

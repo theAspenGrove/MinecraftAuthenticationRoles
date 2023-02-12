@@ -11,6 +11,7 @@ public class Service {
         return false;
     }
     public Service newService(String value){
+        //returns a service of the same type for getting a fresh instance from the map
         return new Service(value);
     }
     public String getValue() {

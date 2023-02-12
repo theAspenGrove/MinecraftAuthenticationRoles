@@ -32,25 +32,32 @@ public class RoleToSync {
         return conditions;
     }
     public boolean isAllRequired() {
+        //whether all conditions must be met or just one
         return allRequired;
     }
     private void LoadConditions(List<String> conditions){
+        //if there is only one condition and it contains "and" then all conditions must be met
         if(conditions.size() == 1){
             if(conditions.get(0).contains(" and ")){
                 allRequired = true;
                 for (String s : conditions.get(0).split(" and ")) {
+                    //handle each condition separately and add it to the list
                     handleCondition(s);
                 }
             }
         }
+        //if there is more than one condition then only one must be met and it will return true on the first match
         for (String condition : conditions) {
+            //handle each condition separately and add it to the list
             handleCondition(condition);
         }
     }
     public void handleUser(Player p){
         UUID uuid = p.getUniqueId();
+        //the current state of the condition criteria
         boolean authorized = false;
         if(isAllRequired()){
+            //if all conditions are required then loop through all conditions, returning the value to false if any of them are false and breaking out of the loop
             authorized = true;
             for (Service service : getConditions()) {
                 if(!service.authorize(uuid)){
@@ -59,6 +66,7 @@ public class RoleToSync {
                 }
             }
         } else{
+            //if only one condition is required then the default is false and it will return true on the first match
             for (Service service : getConditions()) {
                 if(service.authorize(uuid)){
                     authorized = true;
@@ -67,30 +75,32 @@ public class RoleToSync {
             }
         }
         if(authorized){
-            plugin.getLogger().info("added role " + getRole() + " to " + p.getName());
+            //if the user is authorized then add the role and permissions
             for(String permission : getPermissions()){
                 handlePermission(permission,p,true);
             }
         }else{
-            plugin.getLogger().info("removed role " + getRole() + " from " + p.getName());
+            //if the user is not authorized then remove the role and permissions
             for(String permission : getPermissions()){
                 handlePermission(permission,p,false);
             }
         }
     }
     private void handleCondition(String condition){
-        Pattern pattern = Pattern.compile("\\((.*?)\\)");
+        //regex to get the value of the condition, that being the content within ()
+        Pattern valuePattern = Pattern.compile("\\((.*?)\\)");
+        //get the name of the service used for the key in the services map
         String service = condition.split("\\(")[0];
+        //make sure that the condition contains a value and store it in a variable
         String value = "";
-        System.out.println("condition: " + condition);
-        if(pattern.matcher(condition).matches()){
-            value = pattern.matcher(condition).group(1);
+        if(valuePattern.matcher(condition).matches()){
+            value = valuePattern.matcher(condition).group(1);
         }
-        System.out.println("service: " + service);
+        //if the service is valid then add it to the list of conditions
         if(services.containsKey(service)){
             this.conditions.add(services.get(service).newService(value));
         }else {
-            System.out.println("service " + service + " is invalid");
+            //todo log error
         }
     }
 
