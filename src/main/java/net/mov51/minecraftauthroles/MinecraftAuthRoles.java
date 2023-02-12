@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static net.mov51.minecraftauthroles.util.ServiceHelper.loadServiceMap;
@@ -31,7 +32,6 @@ public final class MinecraftAuthRoles extends JavaPlugin {
         RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
         if (provider != null) {
             luckPerms = provider.getProvider();
-
         }
         //register event
         getServer().getPluginManager().registerEvents(new PlayerJoin(), this);

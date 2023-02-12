@@ -1,4 +1,5 @@
 API-token: ""
+debug: false
 roles-to-sync:
   TwitchFollower:
     conditions:

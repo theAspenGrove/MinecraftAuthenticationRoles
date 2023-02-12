@@ -9,7 +9,9 @@ import java.util.TreeMap;
 
 public class ConfigHelper {
     private final String APIToken;
+    private final boolean debug;
     public static final TreeMap<String, RoleToSync> roles = new TreeMap<>();
+
     public ConfigHelper(Plugin plugin){
         //save the default config
         plugin.saveDefaultConfig();
@@ -17,11 +19,15 @@ public class ConfigHelper {
         FileConfiguration config = plugin.getConfig();
         //load the API token
         APIToken = config.getString("API-token");
+        debug = config.getBoolean("debug");
         //load the roles into the roles map for later use
         loadRoles(config);
     }
     public String getAPIToken(){
         return APIToken;
+    }
+    public boolean getDebug(){
+        return debug;
     }
     public void loadRoles(FileConfiguration c) {
         //the config section that contains the roles

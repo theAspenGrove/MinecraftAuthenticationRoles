@@ -6,12 +6,11 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
-import static net.mov51.minecraftauthroles.MinecraftAuthRoles.plugin;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.handlePermission;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.services;
+import static net.mov51.minecraftauthroles.util.logging.logDebug;
 
 public class RoleToSync {
     private final String role;
@@ -54,6 +53,7 @@ public class RoleToSync {
         }
     }
     public void handleUser(Player p){
+        logDebug("Handling user " + p.getName() + " for role " + getRole());
         UUID uuid = p.getUniqueId();
         //the current state of the condition criteria
         boolean authorized = false;
