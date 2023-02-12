@@ -4,8 +4,10 @@ import me.minecraftauth.lib.AuthService;
 import me.minecraftauth.lib.exception.LookupException;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 public class DiscordRoleService extends Service {
@@ -16,7 +18,7 @@ public class DiscordRoleService extends Service {
         try {
             return printResult("Checking if " + uuid + " has Discord role: " + getValue(),AuthService.isDiscordRolePresent(configHelper.getAPIToken(),uuid,getValue()));
         } catch (LookupException e) {
-            //todo log error
+            logger.log(Level.WARNING,"Error looking up user " + uuid + " in DiscordRoleService");
             e.printStackTrace();
             return false;
         }

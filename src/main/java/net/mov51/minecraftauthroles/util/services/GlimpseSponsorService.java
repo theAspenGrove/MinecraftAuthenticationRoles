@@ -4,8 +4,10 @@ import me.minecraftauth.lib.AuthService;
 import me.minecraftauth.lib.exception.LookupException;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 public class GlimpseSponsorService extends Service {
@@ -22,7 +24,7 @@ public class GlimpseSponsorService extends Service {
                         AuthService.isSubscribedGlimpse(configHelper.getAPIToken(),uuid,getValue()));
             }
         } catch (LookupException e) {
-            //todo log error
+            logger.log(Level.WARNING,"Error looking up user " + uuid + " in GlimpseSponsorService");
             e.printStackTrace();
             return false;
         }

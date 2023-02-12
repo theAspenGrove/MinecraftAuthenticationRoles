@@ -4,8 +4,10 @@ import me.minecraftauth.lib.AuthService;
 import me.minecraftauth.lib.exception.LookupException;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 //extend the service class so that we can store it in the service map and override with an authorize method
@@ -23,7 +25,7 @@ public class PatreonService extends Service {
                         AuthService.isSubscribedPatreon(configHelper.getAPIToken(),uuid,getValue()));
             }
         } catch (LookupException e) {
-            //todo log error
+            logger.log(Level.WARNING,"Error looking up Patreon subscription for " + uuid + " at tier " + getValue());
             e.printStackTrace();
             return false;
         }

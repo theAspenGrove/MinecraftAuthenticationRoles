@@ -4,8 +4,10 @@ import me.minecraftauth.lib.AuthService;
 import me.minecraftauth.lib.exception.LookupException;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 public class YouTubeMemberService extends Service {
@@ -23,7 +25,7 @@ public class YouTubeMemberService extends Service {
             }
 
         } catch (LookupException e) {
-            //todo log error
+            logger.log(Level.WARNING,"Error looking up user " + uuid + " in YouTubeMemberService at tier " + getValue() + ".");
             e.printStackTrace();
             return false;
         }

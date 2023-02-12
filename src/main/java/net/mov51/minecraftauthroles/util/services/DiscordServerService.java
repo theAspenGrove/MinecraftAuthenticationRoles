@@ -4,8 +4,10 @@ import me.minecraftauth.lib.AuthService;
 import me.minecraftauth.lib.exception.LookupException;
 
 import java.util.UUID;
+import java.util.logging.Level;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.configHelper;
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.printResult;
 
 //extend the service class so that we can store it in the service map and override with an authorize method
@@ -20,7 +22,7 @@ public class DiscordServerService extends Service {
             return printResult("Checking if " + uuid + " is in discord server",
                     AuthService.isDiscordMemberPresent(configHelper.getAPIToken(),uuid, getValue()));
         } catch (LookupException e) {
-            //todo log error
+            logger.log(Level.WARNING,"Error looking up user " + uuid + " in DiscordServerService");
             e.printStackTrace();
             return false;
         }
