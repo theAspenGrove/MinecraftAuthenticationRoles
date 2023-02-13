@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
@@ -92,12 +93,13 @@ public class RoleToSync {
     private void handleCondition(String condition){
         //regex to get the value of the condition, that being the content within ()
         Pattern valuePattern = Pattern.compile("\\((.*?)\\)");
+        Matcher m = valuePattern.matcher(condition);
         //get the name of the service used for the key in the services map
         String service = condition.split("\\(")[0];
         //make sure that the condition contains a value and store it in a variable
         String value = "";
-        if(valuePattern.matcher(condition).matches()){
-            value = valuePattern.matcher(condition).group(1);
+        if(m.find()){
+            value = m.group(1);
         }
         //if the service is valid then add it to the list of conditions
         if(services.containsKey(service)){
