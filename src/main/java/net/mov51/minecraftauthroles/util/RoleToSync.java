@@ -6,8 +6,10 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.logging.Level;
 import java.util.regex.Pattern;
 
+import static net.mov51.minecraftauthroles.MinecraftAuthRoles.logger;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.handlePermission;
 import static net.mov51.minecraftauthroles.util.ServiceHelper.services;
 import static net.mov51.minecraftauthroles.util.logging.logDebug;
@@ -101,7 +103,8 @@ public class RoleToSync {
         if(services.containsKey(service)){
             this.conditions.add(services.get(service).newService(value));
         }else {
-            //todo log error
+            //if the service is not valid then log an error
+            logger.log(Level.WARNING, "Invalid service " + service + " in config.yml");
         }
     }
 
