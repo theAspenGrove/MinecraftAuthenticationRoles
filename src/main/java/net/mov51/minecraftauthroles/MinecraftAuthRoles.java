@@ -34,7 +34,12 @@ public final class MinecraftAuthRoles extends JavaPlugin {
             luckPerms = provider.getProvider();
         }
         //register event
-        getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        if(configHelper.isAPIKeyValid()){
+            getServer().getPluginManager().registerEvents(new PlayerJoin(), this);
+        }else{
+            logger.log(Level.SEVERE, "API key is invalid! Please check your config.yml file!");
+            logger.log(Level.SEVERE, "You can get a key at https://minecraftauth.me/api/token");
+        }
     }
 
     @Override
